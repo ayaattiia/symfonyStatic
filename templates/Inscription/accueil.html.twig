@@ -1,0 +1,17 @@
+{# {% extends "base.html.twig" %}
+
+{% block body %}
+    <h1><span class='text-success'> Bienvenue à notre page d'accueil</span> </h1>
+    <h1>Your lucky number is {{ number }}</h1>
+{% endblock %} #}
+
+
+
+{# templates/Inscription/accueil.html.twig #}
+{% extends "base.html.twig" %}
+{% block title %}{{parent()}} - Accueil{% endblock %}
+{% block titre %}{{parent()|upper}} - Session 2026{% endblock %}
+{% block body %}
+<h2><span class='text-success'> Bienvenue à notre page d'accueil</span> </h2>
+<h1>Your lucky number is {{ number }}</h1>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ job.type }} - {{ job.company }}{% endblock %}
+
+{% block body %}
+<div class="job-detail">
+
+    <nav class="job-breadcrumb">
+        <a href="{{ path('job_index') }}">← Retour aux offres</a>
+    </nav>
+
+    <header class="job-header">
+        <h1>{{ job.type }}</h1>
+        <h2 class="job-company">{{ job.company }}</h2>
+
+        <ul class="job-meta">
+            <li>
+                <strong>Type de contrat :</strong> {{ job.type }}
+            </li>
+            <li>
+                <strong>Date d'expiration :</strong>
+                {{ job.expiresAt|date('d/m/Y') }}
+                {% if job.expiresAt < date() %}
+                    <span class="badge badge-expired">Expirée</span>
+                {% else %}
+                    <span class="badge badge-active">Active</span>
+                {% endif %}
+            </li>
+            <li>
+                <strong>Contact :</strong>
+                <a href="mailto:{{ job.email }}">{{ job.email }}</a>
+            </li>
+        </ul>
+    </header>
+
+    <section class="job-description">
+        <h3>Description du poste</h3>
+        <p>{{ job.description|nl2br }}</p>
+    </section>
+
+    <footer class="job-actions">
+        <a href="{{ path('job_index') }}" class="btn">Retour à la liste</a>
+        {% if job.expiresAt >= date() %}
+            <a href="mailto:{{ job.email }}?subject=Candidature - {{ job.type }}" class="btn btn-primary">Postuler par email</a>
+        {% endif %}
+    </footer>
+
+</div>
+
+<style>
+    .job-detail { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    .job-breadcrumb { margin-bottom: 1rem; }
+    .job-header { border-bottom: 1px solid #ddd; padding-bottom: 1rem; margin-bottom: 1.5rem; }
+    .job-company { color: #555; font-weight: normal; margin-top: 0; }
+    .job-meta { list-style: none; padding: 0; display: flex; flex-direction: column; gap: .5rem; }
+    .job-description { line-height: 1.7; }
+    .job-actions { margin-top: 2rem; display: flex; gap: 1rem; }
+    .btn { padding: .6rem 1.2rem; border: 1px solid #333; border-radius: 6px; text-decoration: none; color: #333; }
+    .btn-primary { background: #2563eb; border-color: #2563eb; color: #fff; }
+    .badge { padding: .15rem .5rem; border-radius: 4px; font-size: .8rem; color: #fff; }
+    .badge-active { background: #16a34a; }
+    .badge-expired { background: #dc2626; }
+</style>
+{% endblock %}
